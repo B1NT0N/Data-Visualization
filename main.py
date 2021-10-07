@@ -3,8 +3,10 @@ import numpy as np
 import pandas as pd
 import sqlalchemy
 
+
+
 def load_data(file):
-    
+    st.markdown("---")
     engine = sqlalchemy.create_engine('mysql://root@localhost/smscount')
     
     df = pd.read_csv(file,encoding='utf-8')
@@ -33,14 +35,53 @@ def load_data(file):
     
     df.to_sql('sms', engine, if_exists='replace', index=False)
 
-st.title('Data Visualization')
+st.set_page_config(page_title='SMSBulk A2P', page_icon="Logo-s.png",layout="centered")
+st.write('')
+st.write('')
+st.image("CVMOVEL HORIZONTAL OFICIAL - POSITIVA.png", width=100)
 
-file = st.file_uploader("", type=".csv", accept_multiple_files=False, key=None, help="Upload Data",)
+padding = 0
+st.markdown(f""" <style>
+    .reportview-container .main .block-container{{
+        padding-top: {padding}rem;
+        padding-right: {padding}rem;
+        padding-left: {padding}rem;
+        padding-bottom: {padding}rem;
+    }} </style> """, unsafe_allow_html=True)
+st.markdown(""" <style>
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+</style> """, unsafe_allow_html=True)
 
-selection = st.radio("", ["Entrada","Saida"])
+with st.container():
+    _0,_1,_2 = st.columns([0.6,1,0.25])
+    with _1:
+        st.markdown('<h1 style= color:#1cb4c4;">SMSBulk A2P</h1>', unsafe_allow_html=True)
 
-add_button = st.button("Add Data", help="Click to confirm the Upload")
+    file = st.file_uploader("", type=".csv", accept_multiple_files=False, key=None, help="Upload Data",)
 
+    col1, col2 = st.columns([3,0.60])
+
+    with col1:
+        selection = st.radio("", ["Entrada","Saida"])
+    with col2:
+        st.write('')
+        st.write('')
+        add_button = st.button("Adicionar", help="Click to confirm the Upload")
+st.markdown("---")
+with st.container():
+    st.write('')
+    col3,col4,col5 = st.columns([1,1,0.32])
+    with col3:
+
+        year = st.selectbox('Ano', range(1990, 2100))
+    with col4:
+        month = st.selectbox('Mês', range(1, 13))
+    with col5:
+        st.write('')
+        st.write('')
+
+        filter = st.button("Filtrar", help="Click to confirm the Upload")
 if add_button==True and file is not None:
     load_data(file)
 elif add_button==True and file is  None:
