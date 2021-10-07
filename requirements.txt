@@ -1,0 +1,5 @@
+mysqlclient 
+streamlit
+numpy
+pandas
+sqlalchemy
