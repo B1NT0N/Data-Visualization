@@ -7,7 +7,9 @@ import sqlalchemy
 engine = sqlalchemy.create_engine('mysql://root@localhost/smscount')
 
 def show_data(year,month):
-    df1 = pd.read_sql("SELECT Origem, COUNT(CASE WHEN Tipo = 1 then 1 ELSE NULL END) as OnNet, COUNT(CASE WHEN Tipo = 2 then 1 ELSE NULL END) as OffNet, COUNT(CASE WHEN Tipo = 3 then 1 ELSE NULL END) as Internacional, DATE_FORMAT(Data, '%%m-%%y') as Mes FROM sms Group By Origem", engine)
+    
+    df1 = pd.read_sql(f"SELECT Origem, COUNT(CASE WHEN Tipo = 1 then 1 ELSE NULL END) as OnNet, COUNT(CASE WHEN Tipo = 2 then 1 ELSE NULL END) as OffNet, COUNT(CASE WHEN Tipo = 3 then 1 ELSE NULL END) as Internacional, DATE_FORMAT(Data, '%%m-%%y') as Mes FROM sms where Data between '{year}-{month}-01' and '{year}-{month}-31' Group By Origem", engine)
+    
     _a,_b,_c = st.columns([0.1,3,0.2])
     with _b:
         st.write(df1)
