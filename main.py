@@ -4,11 +4,14 @@ import pandas as pd
 import sqlalchemy
 
 
+engine = sqlalchemy.create_engine('mysql://root@localhost/smscount')
+
+def show_data(year,month):
+    df1 = pd.read_sql("SELECT Origem, COUNT(CASE WHEN Tipo = 1 then 1 ELSE NULL END) as OnNet, COUNT(CASE WHEN Tipo = 2 then 1 ELSE NULL END) as OffNet, COUNT(CASE WHEN Tipo = 3 then 1 ELSE NULL END) as Internacional, DATE_FORMAT(Data, '%%m-%%y') as Mes FROM sms Group By Origem", engine)
+    st.write(df1)
 
 def load_data(file):
     st.markdown("---")
-    engine = sqlalchemy.create_engine('mysql://root@localhost/smscount')
-    
     df = pd.read_csv(file,encoding='utf-8')
     df=df.drop(df.columns[[3,5,6,7,8,9,10,11,13,14]],axis=1)
     
@@ -82,7 +85,7 @@ with st.container():
         st.write('')
         st.write('')
 
-        filter = st.button("Filtrar", help="Click to confirm the Upload")
+        filter_button = st.button("Filtrar", help="Click to confirm the Upload")
 
 
         
@@ -90,3 +93,5 @@ if add_button==True and file is not None:
     load_data(file)
 elif add_button==True and file is  None:
     st.warning("Please Upload a File")
+elif filter_button == True:
+    show_data(year,month)
