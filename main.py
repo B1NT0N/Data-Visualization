@@ -17,6 +17,7 @@ def load_data(file):
     df = df.drop([3], axis=0)
     df.reset_index(inplace = True)
     df = df.drop(df.columns[[0]],axis=1)
+    df.rename({df.columns.values[2]:'Data'},axis=1,inplace=True)
     
     if selection == "Entrada": 
         df=df.replace(to_replace="Gateway_G", value=1,)
@@ -82,6 +83,9 @@ with st.container():
         st.write('')
 
         filter = st.button("Filtrar", help="Click to confirm the Upload")
+
+
+        
 if add_button==True and file is not None:
     load_data(file)
 elif add_button==True and file is  None:
