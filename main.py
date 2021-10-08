@@ -3,7 +3,6 @@ import numpy as np
 import pandas as pd
 import sqlalchemy
 
-
 engine = sqlalchemy.create_engine('mysql://root@localhost/smscount')
 
 def show_data(year,month):
