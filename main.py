@@ -74,6 +74,9 @@ st.markdown(f""" <style>
 st.markdown(""" <style>
 #MainMenu {visibility: hidden;}
 footer {visibility: hidden;}
+.css-fk4es0 {
+    background-image:linear-gradient(90deg, rgb(228,49,23), rgb(37,184,202));
+}
 </style> """, unsafe_allow_html=True)
 
 with st.container():
@@ -81,7 +84,7 @@ with st.container():
     with _1:
         st.markdown('<h1 style= color:#1cb4c4;">SMSBulk A2P</h1>', unsafe_allow_html=True)
 
-    file = st.file_uploader("", type=".csv", accept_multiple_files=False, key=None, help="Upload Data",)
+    file = st.file_uploader("", type=".csv", accept_multiple_files=False, key=None,)
 
     col1, col2 = st.columns([3,0.60])
 
@@ -90,7 +93,7 @@ with st.container():
     with col2:
         st.write('')
         st.write('')
-        add_button = st.button("Adicionar", help="Click to confirm the Upload")
+        add_button = st.button("Adicionar", help="")
 st.markdown("---")
 with st.container():
     st.write('')
@@ -104,7 +107,7 @@ with st.container():
         st.write('')
         st.write('')
 
-        filter_button = st.button("Filtrar", help="Click to confirm the Upload")
+        filter_button = st.button("Filtrar", help="")
       
 if add_button==True and file is not None:
     load_data(file)
