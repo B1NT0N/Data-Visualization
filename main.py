@@ -10,22 +10,25 @@ def show_data(year,month):
     
     df1 = pd.read_sql(f"SELECT Origem, COUNT(CASE WHEN Tipo = 1 then 1 ELSE NULL END) as OnNet, COUNT(CASE WHEN Tipo = 2 then 1 ELSE NULL END) as OffNet, COUNT(CASE WHEN Tipo = 3 then 1 ELSE NULL END) as Internacional, DATE_FORMAT(Data, '%%m-%%y') as Mes FROM sms where Data between '{year}-{month}-01' and '{year}-{month}-31' Group By Origem", engine)
     
-    _a,_b,_c = st.columns([0.1,3,0.2])
-    with _b:
-        st.write(df1)
-        @st.cache
-        def convert_df(df):
-            # IMPORTANT: Cache the conversion to prevent computation on every rerun
-            return df.to_csv().encode('utf-8')
+    if df1.empty:
+        st.warning("Nenhum Resultado Encontrado")
+    else:
+        _a,_b,_c = st.columns([0.1,3,0.2])
+        with _b:
+            st.write(df1)
+            @st.cache
+            def convert_df(df):
+                # IMPORTANT: Cache the conversion to prevent computation on every rerun
+                return df.to_csv().encode('utf-8')
 
-        csv = convert_df(df1)
+            csv = convert_df(df1)
 
-        st.download_button(
-            label="Download Data",
-            data=csv,
-            file_name=f'Output {month}/{year}.csv',
-            mime='text/csv',
-        )
+            st.download_button(
+                label="Download Data",
+                data=csv,
+                file_name=f'Output {month}/{year}.csv',
+                mime='text/csv',
+            )
 
 def load_data(file):
     st.markdown("---")
@@ -97,7 +100,7 @@ with st.container():
 
         year = st.selectbox('Ano', range(1990, 2100))
     with col4:
-        month = st.selectbox('Mês', range(1, 13))
+        month = st.selectbox('Mês', ["01","02","03","04","05","06","07","08","09","10"])
     with col5:
         st.write('')
         st.write('')
