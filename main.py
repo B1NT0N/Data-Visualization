@@ -2,18 +2,24 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import sqlalchemy
+import stqdm
+
 
 engine = sqlalchemy.create_engine('mysql://root@localhost/smscount')
 
 def show_data(year,month):
-    
+    my_bar = st.progress(0)
     df1 = pd.read_sql(f"SELECT Origem, COUNT(CASE WHEN Tipo = 1 then 1 ELSE NULL END) as OnNet, COUNT(CASE WHEN Tipo = 2 then 1 ELSE NULL END) as OffNet, COUNT(CASE WHEN Tipo = 3 then 1 ELSE NULL END) as Internacional, DATE_FORMAT(Data, '%%m-%%y') as Mes FROM sms where Data between '{year}-{month}-01' and '{year}-{month}-31' Group By Origem", engine)
     
+    my_bar.progress(50)
     if df1.empty:
+        my_bar.progress(100)
         st.warning("Nenhum Resultado Encontrado")
     else:
+        
         _a,_b,_c = st.columns([0.1,3,0.2])
         with _b:
+            st.success("Concluido")
             st.write(df1)
             @st.cache
             def convert_df(df):
@@ -28,12 +34,15 @@ def show_data(year,month):
                 file_name=f'Output {month}/{year}.csv',
                 mime='text/csv',
             )
-
+        my_bar.progress(100)
+        
 def load_data(file):
     st.markdown("---")
+    my_bar = st.progress(0)
     df = pd.read_csv(file,encoding='utf-8')
-    df=df.drop(df.columns[[3,5,6,7,8,9,10,11,13,14]],axis=1)
     
+    my_bar.progress(25)
+    df=df.drop(df.columns[[3,5,6,7,8,9,10,11,13,14]],axis=1)
     df = df.set_index(list(set(df.columns[[3]])))
     df = df.drop([2], axis=0)
     df = df.drop([3], axis=0)
@@ -41,22 +50,26 @@ def load_data(file):
     df = df.drop(df.columns[[0]],axis=1)
     df.rename({df.columns.values[2]:'Data'},axis=1,inplace=True)
     
+    my_bar.progress(50)
     if selection == "Entrada": 
         df=df.replace(to_replace="Gateway_G", value=1,)
         df=df.replace(to_replace="-", value=1,)
         df.rename({df.columns.values[3]:'Tipo'},axis=1,inplace=True)
-        st.write(df.head(25))
+        # st.write(df.head(25))
         print(df.head(5))
     else:
         df=df.replace(to_replace="Gateway_G", value=2,)
         df=df.replace(to_replace="p2pcpvmovel", value=3,)
         df=df.replace(to_replace="ToIbasisA2P", value=3,)
         df.rename({df.columns.values[3]:'Tipo'},axis=1,inplace=True)
-        st.write(df.head(25))
+        # st.write(df.head(25))
         print(df.head(5))
-    st.success("Done")
     
-    df.to_sql('sms', engine, if_exists='replace', index=False)
+    
+    my_bar.progress(75)
+    df.to_sql('sms', engine, if_exists='append', index=False)
+    my_bar.progress(100)
+    st.success("Concluido")
 
 st.set_page_config(page_title='SMSBulk A2P', page_icon="Logo-s.png",layout="centered")
 st.write('')
