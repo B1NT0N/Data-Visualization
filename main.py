@@ -2,8 +2,6 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import sqlalchemy
-import stqdm
-
 
 engine = sqlalchemy.create_engine('mysql://root@localhost/smscount')
 
@@ -71,10 +69,10 @@ def load_data(file):
     my_bar.progress(100)
     st.success("Concluido")
 
-st.set_page_config(page_title='SMSBulk A2P', page_icon="Logo-s.png",layout="centered")
+st.set_page_config(page_title='SMSBulk A2P', page_icon="https://raw.githubusercontent.com/B1NT0N/Data-Visualization/master/logo-s.png?token=ARBWDNLDKHLCQOUCXVUSTS3BN25AS",layout="centered")
 st.write('')
 st.write('')
-st.image("CVMOVEL HORIZONTAL OFICIAL - POSITIVA.png", width=100)
+st.image("https://raw.githubusercontent.com/B1NT0N/Data-Visualization/master/CVMOVEL%20HORIZONTAL%20OFICIAL%20-%20POSITIVA.png?token=ARBWDNN2Y2OP5EB2DEFLWV3BN24YK", width=100)
 
 padding = 0
 st.markdown(f""" <style>
