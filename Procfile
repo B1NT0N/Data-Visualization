@@ -1,1 +1,1 @@
-web: streamlit run penguins-app.py
+web: streamlit run main.py
