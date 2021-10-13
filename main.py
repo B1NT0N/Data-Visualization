@@ -5,9 +5,9 @@ import sqlalchemy
 from datetime import date
 
 Username= "sql11444207"
-Database_name= "sql11444207	"
+Database_name= "sql11444207"
 Password= "zd9zwwVLvH"
-Server= "sql11.freesqldatabase.com	"
+Server= "sql11.freesqldatabase.com"
 Port= "3306"
 
 engine = sqlalchemy.create_engine(f'mysql://{Username}:{Password}@{Server}:{Port}/{Database_name}')
