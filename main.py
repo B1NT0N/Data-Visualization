@@ -3,7 +3,13 @@ import numpy as np
 import pandas as pd
 import sqlalchemy
 
-engine = sqlalchemy.create_engine('mysql://sql11443881:dBpLl298YX@sql11.freemysqlhosting.net:3306/sql11443881')
+Username= "yrfvN7V455"
+Database_name= "yrfvN7V455"
+Password= "mTk2yY0YLv"
+Server= "remotemysql.com"
+Port= "3306"
+
+engine = sqlalchemy.create_engine(f'mysql://{Username}:{Password}@{Server}:{Port}/{Database_name}')
 
 def show_data(year,month):
     my_bar = st.progress(0)
