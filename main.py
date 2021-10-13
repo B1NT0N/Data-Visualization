@@ -118,9 +118,9 @@ with st.container():
     col3,col4,col5 = st.columns([1,1,0.32])
     with col3:
         
-        year = st.selectbox('Ano', range((date.today().year-3), date.today().year))
+        year = st.selectbox('Ano', range((date.today().year-3), (date.today().year+1)), index=3)
     with col4:
-        month = st.selectbox('Mês', ["01","02","03","04","05","06","07","08","09","10","11","12"])
+        month = st.selectbox('Mês', ["01","02","03","04","05","06","07","08","09","10","11","12"], index=(date.today().month-1))
     with col5:
         st.write('')
         st.write('')
