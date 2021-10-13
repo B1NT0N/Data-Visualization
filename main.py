@@ -4,10 +4,10 @@ import pandas as pd
 import sqlalchemy
 from datetime import date
 
-Username= "epiz_30055294"
-Database_name= "epiz_30055294_smscount"
-Password= "cBdfVbBLA7l"
-Server= "sql108.epizy.com"
+Username= "sql11444207"
+Database_name= "sql11444207	"
+Password= "zd9zwwVLvH"
+Server= "sql11.freesqldatabase.com	"
 Port= "3306"
 
 engine = sqlalchemy.create_engine(f'mysql://{Username}:{Password}@{Server}:{Port}/{Database_name}')
