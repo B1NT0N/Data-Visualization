@@ -3,10 +3,11 @@ import pandas as pd
 from openpyxl import load_workbook
 import time 
 import sqlalchemy
+from datetime import date
 
-engine = sqlalchemy.create_engine("mysql://root@localhost/smscount")
-sql = pd.read_sql('sms', engine)
-print(sql)
+# engine = sqlalchemy.create_engine("mysql://root@localhost/smscount")
+# sql = pd.read_sql('sms', engine)
+# print(sql)
 start = time.time()
 
 # try:
@@ -56,7 +57,7 @@ start = time.time()
 # except Exception as exception:
 #     print(exception)
  
-
+print("Current month:", '{:02d}'.format(date.today().month))
             
 end = time.time()
 print("Total runtime:", (end-start))

@@ -24,7 +24,7 @@ def show_data(year,month):
         _a,_b,_c = st.columns([0.1,3,0.2])
         with _b:
             st.success("Concluido")
-            st.write(df1)
+            st.dataframe(df1)
             @st.cache
             def convert_df(df):
                 # IMPORTANT: Cache the conversion to prevent computation on every rerun
