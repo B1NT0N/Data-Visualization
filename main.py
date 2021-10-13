@@ -2,6 +2,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import sqlalchemy
+from datetime import date
 
 Username= "epiz_30055294"
 Database_name= "epiz_30055294_smscount"
@@ -117,7 +118,7 @@ with st.container():
     col3,col4,col5 = st.columns([1,1,0.32])
     with col3:
 
-        year = st.selectbox('Ano', range(1990, 2100))
+        year = st.selectbox('Ano', range((date.today().month-3), date.today().year))
     with col4:
         month = st.selectbox('Mês', ["01","02","03","04","05","06","07","08","09","10","11","12"])
     with col5:
