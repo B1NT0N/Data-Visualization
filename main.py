@@ -3,10 +3,10 @@ import numpy as np
 import pandas as pd
 import sqlalchemy
 
-Username= "yrfvN7V455"
-Database_name= "yrfvN7V455"
-Password= "mTk2yY0YLv"
-Server= "remotemysql.com"
+Username= "sql11444133"
+Database_name= "sql11444133"
+Password= "HMjN1MSrpm"
+Server= "sql11.freesqldatabase.com	"
 Port= "3306"
 
 engine = sqlalchemy.create_engine(f'mysql://{Username}:{Password}@{Server}:{Port}/{Database_name}')
